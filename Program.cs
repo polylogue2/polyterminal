@@ -1,11 +1,22 @@
-﻿using Spectre.Console;
-using System.Transactions;
-
+﻿using System;
+using System.Reflection;
+using System.IO;
+using Spectre.Console;
 class Program
 {
     static void Main()
     {
         AnsiConsole.Clear();
+
+        string version = ReadEmbeddedResource("polyterminal.version.txt");
+
+        if (version == null)
+        {
+            Console.WriteLine("Version resource not found.");
+            version = "unknown";
+        }
+
+        Console.Title = $"polyterminal v{version}";
 
         AnsiConsole.MarkupLine("[rgb(129,161,255)]guest[/][white]@[/][rgb(129,161,255)]alwaysdns.net[/][white]:~ $ [/]~/startup.sh");
         AnsiConsole.WriteLine();
@@ -24,7 +35,7 @@ class Program
         AnsiConsole.MarkupLine($"[rgb(202,160,255)]{buttonsAsciiSmall}[/]");
         AnsiConsole.WriteLine();
 
-        AnsiConsole.MarkupLine("[white]Welcome to [rgb(202,160,255)]polyterminal[/] (v1.0.1), my terminal-themed portfolio![/]");
+        AnsiConsole.MarkupLine($"[white]Welcome to [rgb(202,160,255)]polyterminal[/] (v{version}), my terminal-themed portfolio![/]");
         AnsiConsole.MarkupLine("[white]Check out the [rgb(129,161,255)][link=https://github.com/polylogue2/polyterminal]GitHub repository[/][/][/]");
         AnsiConsole.WriteLine();
 
@@ -84,6 +95,7 @@ class Program
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]projects[/]   Features my best projects");
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]home[/]       Opens the main website");
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]links[/]      Shows my social links");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]echo[/]       Renders text in the console");
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]info[/]       Lists information about polyterminal");
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]help[/]       Displays help text");
                     AnsiConsole.MarkupLine($"[rgb(202,160,255)]exit[/]       Quit polyterminal");
@@ -92,7 +104,7 @@ class Program
 
                 case "info":
                     AnsiConsole.WriteLine();
-                    AnsiConsole.MarkupLine("[rgb(202,160,255)]polyterminal (Desktop) v1.0.1[/]");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]polyterminal (Desktop) v{version}[/]");
                     AnsiConsole.MarkupLine("[white]Designed by polylogue @ MMXXV[/]");
                     AnsiConsole.MarkupLine("[white]polyterminal is a custom console portfolio, providing a unique way to interact with my website.[/]");
                     AnsiConsole.WriteLine();
@@ -115,5 +127,15 @@ class Program
             }
         }
 
-}
+        static string ReadEmbeddedResource(string resourceName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            using Stream? stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null) return null;
+
+            using StreamReader reader = new StreamReader(stream);
+            return reader.ReadToEnd().Trim();
+        }
+    }
 }
