@@ -1,0 +1,102 @@
+﻿using Spectre.Console;
+
+class Program
+{
+    static void Main()
+    {
+        AnsiConsole.Clear();
+
+        AnsiConsole.MarkupLine("[rgb(129,161,255)]guest[/][white]@[/][rgb(129,161,255)]alwaysdns.net[/][white]:~ $ [/]~/startup.sh");
+        AnsiConsole.WriteLine();
+
+        string buttonsAsciiSmall = @"
+===========    ----------    ===========    ----------
+===========    ----------    ===========    ----------
+====   ====    ----  ----    ====   ====    ----  ----
+====   ====    ----  ----    ====   ====    ----  ----
+===========    ----------    ===========    ----------
+===========    ----------    ===========    ----------
+===========    ----------    ===========    ----------
+===========    ----------    ===========    ----------
+===========    ----------    ===========    ----------  
+";
+        AnsiConsole.MarkupLine($"[rgb(202,160,255)]{buttonsAsciiSmall}[/]");
+        AnsiConsole.WriteLine();
+
+        AnsiConsole.MarkupLine("[white]Welcome to [rgb(202,160,255)]polyterminal[/] (v1.0.1), my terminal-themed portfolio![/]");
+        AnsiConsole.MarkupLine("[white]Check out the [rgb(129,161,255)][link=https://github.com/alwaysdns]GitHub repository[/][/][/]");
+        AnsiConsole.WriteLine();
+
+        AnsiConsole.MarkupLine("[white]Type 'help' for a list of available commands.[/]");
+        AnsiConsole.WriteLine();
+
+        while (true)
+        {
+            AnsiConsole.Markup("[rgb(129,161,255)]guest[/]");
+            AnsiConsole.Markup("[white]@[/]");
+            AnsiConsole.Markup("[rgb(129,161,255)]alwaysdns.net[/]");
+            AnsiConsole.Markup("[white]:~ $ [/]"); // No WriteLine here, so input is on same line
+
+            string input = Console.ReadLine()?.Trim().ToLower() ?? "";
+
+            if (input == "exit" || input == "quit")
+                break;
+
+            switch (input)
+            {
+                case "about":
+                    AnsiConsole.MarkupLine("[white]Hello! I'm Fresh, a hobbyist software developer and tech enthusiast, interested in networking and programming. I mainly make web-based projects, as well as terminal programs (like this!).[/]");
+                    break;
+
+                case "projects":
+                    AnsiConsole.MarkupLine("[white]Some projects: Waveform music streamer, HF4 Park Minecraft campus, Polyboard macro keyboard.[/]");
+                    break;
+
+                case "home":
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "https://alwaysdns.net/?utm_source=polyterminal",
+                        UseShellExecute = true
+                    });
+                    break;
+
+                case "links":
+                    AnsiConsole.MarkupLine("[white]- YouTube:[/] [link=https://youtube.com/@polylogue2]youtube.com/@polylogue2[/]");
+                    AnsiConsole.MarkupLine("[white]- GitHub:[/] [link=https://github.com/polylogue2]github.com/polylogue2[/]");
+                    AnsiConsole.MarkupLine("[white]- Bluesky:[/] [link=https://bsky.app/profile/alwaysdns.net]bsky.app/profile/alwaysdns.net[/]");
+                    AnsiConsole.WriteLine();
+                    AnsiConsole.MarkupLine("[white](ctrl+click to open)[/]");
+                    break;
+
+                case "help":
+                    AnsiConsole.WriteLine();
+                    AnsiConsole.MarkupLine("[white]Available commands:[/]");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]about[/]      About me");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]projects[/]   Features my best projects");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]home[/]       Opens the main website");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]links[/]      Shows my social links");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]info[/]       Lists information about polyterminal");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]help[/]       Displays help text");
+                    AnsiConsole.MarkupLine($"[rgb(202,160,255)]exit[/]       Quit polyterminal");
+                    AnsiConsole.WriteLine();
+                    break;
+
+
+                case "info":
+                    AnsiConsole.WriteLine();
+                    AnsiConsole.MarkupLine("[rgb(202,160,255)]polyterminal (Desktop) v1.0.1[/]");
+                    AnsiConsole.MarkupLine("[white]Designed by polylogue @ MMXXV[/]");
+                    AnsiConsole.MarkupLine("[white]polyterminal is a custom console portfolio, providing a unique way to interact with my website.[/]");
+                    AnsiConsole.WriteLine();
+                    break;
+
+                default:
+                    AnsiConsole.MarkupLine($"-bash: [rgb(202,160,255)]{input}[/]: command not found");
+                    break;
+
+            }
+        }
+
+
+    }
+}
