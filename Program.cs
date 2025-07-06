@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using System.Transactions;
 
 class Program
 {
@@ -24,7 +25,7 @@ class Program
         AnsiConsole.WriteLine();
 
         AnsiConsole.MarkupLine("[white]Welcome to [rgb(202,160,255)]polyterminal[/] (v1.0.1), my terminal-themed portfolio![/]");
-        AnsiConsole.MarkupLine("[white]Check out the [rgb(129,161,255)][link=https://github.com/alwaysdns]GitHub repository[/][/][/]");
+        AnsiConsole.MarkupLine("[white]Check out the [rgb(129,161,255)][link=https://github.com/polylogue2/polyterminal]GitHub repository[/][/][/]");
         AnsiConsole.WriteLine();
 
         AnsiConsole.MarkupLine("[white]Type 'help' for a list of available commands.[/]");
@@ -37,12 +38,20 @@ class Program
             AnsiConsole.Markup("[rgb(129,161,255)]alwaysdns.net[/]");
             AnsiConsole.Markup("[white]:~ $ [/]");
 
-            string input = Console.ReadLine()?.Trim().ToLower() ?? "";
+            string input = Console.ReadLine()?.Trim() ?? "";
 
-            if (input == "exit" || input == "quit")
+            if (string.IsNullOrEmpty(input))
+                continue;
+
+            // Split command and args (first word + rest)
+            int firstSpace = input.IndexOf(' ');
+            string command = firstSpace == -1 ? input.ToLower() : input[..firstSpace].ToLower();
+            string args = firstSpace == -1 ? "" : input[(firstSpace + 1)..];
+
+            if (command == "exit" || command == "quit")
                 break;
 
-            switch (input)
+            switch (command)
             {
                 case "about":
                     AnsiConsole.MarkupLine("[white]Hello! I'm Fresh, a hobbyist software developer and tech enthusiast, interested in networking and programming. I mainly make web-based projects, as well as terminal programs (like this!).[/]");
@@ -81,7 +90,6 @@ class Program
                     AnsiConsole.WriteLine();
                     break;
 
-
                 case "info":
                     AnsiConsole.WriteLine();
                     AnsiConsole.MarkupLine("[rgb(202,160,255)]polyterminal (Desktop) v1.0.1[/]");
@@ -90,13 +98,22 @@ class Program
                     AnsiConsole.WriteLine();
                     break;
 
+                case "echo":
+                    if (!string.IsNullOrWhiteSpace(args))
+                    {
+                        AnsiConsole.MarkupLine($"[white]{args}[/]");
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[white]Usage: echo [rgb(202,160,255)]{message}[/][/]");
+                    }
+                    break;
+
                 default:
                     AnsiConsole.MarkupLine($"-bash: [rgb(202,160,255)]{input}[/]: command not found");
                     break;
-
             }
         }
 
-
-    }
+}
 }
