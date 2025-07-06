@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.IO;
+﻿using System.Reflection;
 using Spectre.Console;
 class Program
 {
@@ -22,16 +20,16 @@ class Program
         AnsiConsole.WriteLine();
 
         string buttonsAsciiSmall = @"
-===========    ----------    ===========    ----------
-===========    ----------    ===========    ----------
-====   ====    ----  ----    ====   ====    ----  ----
-====   ====    ----  ----    ====   ====    ----  ----
-===========    ----------    ===========    ----------
-===========    ----------    ===========    ----------
-===========    ----------    ===========    ----------
-===========    ----------    ===========    ----------
-===========    ----------    ===========    ----------  
-";
+            ===========    ----------    ===========    ----------
+            ===========    ----------    ===========    ----------
+            ====   ====    ----  ----    ====   ====    ----  ----
+            ====   ====    ----  ----    ====   ====    ----  ----
+            ===========    ----------    ===========    ----------
+            ===========    ----------    ===========    ----------
+            ===========    ----------    ===========    ----------
+            ===========    ----------    ===========    ----------
+            ===========    ----------    ===========    ----------  
+            ";
         AnsiConsole.MarkupLine($"[rgb(202,160,255)]{buttonsAsciiSmall}[/]");
         AnsiConsole.WriteLine();
 
@@ -54,7 +52,6 @@ class Program
             if (string.IsNullOrEmpty(input))
                 continue;
 
-            // Split command and args (first word + rest)
             int firstSpace = input.IndexOf(' ');
             string command = firstSpace == -1 ? input.ToLower() : input[..firstSpace].ToLower();
             string args = firstSpace == -1 ? "" : input[(firstSpace + 1)..];
