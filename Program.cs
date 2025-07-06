@@ -35,7 +35,7 @@ class Program
             AnsiConsole.Markup("[rgb(129,161,255)]guest[/]");
             AnsiConsole.Markup("[white]@[/]");
             AnsiConsole.Markup("[rgb(129,161,255)]alwaysdns.net[/]");
-            AnsiConsole.Markup("[white]:~ $ [/]"); // No WriteLine here, so input is on same line
+            AnsiConsole.Markup("[white]:~ $ [/]");
 
             string input = Console.ReadLine()?.Trim().ToLower() ?? "";
 
